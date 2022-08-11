@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TurretSellDialog : MonoBehaviour
+public class TowerSellDialog : MonoBehaviour
 {
     private Action OnSubmit;
     public void Show(Vector2 position, Action callback)

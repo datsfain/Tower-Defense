@@ -39,7 +39,6 @@ public class SelectionManager : MonoBehaviour
 
     private void OnClickDown()
     {
-        Debug.Log("OnClickDown");
 #if UNITY_EDITOR
         RaycastHit hit;
         var ray = m_Camera.ScreenPointToRay(Input.mousePosition);
@@ -59,7 +58,6 @@ public class SelectionManager : MonoBehaviour
 
     private void OnClickUp()
     {
-        Debug.Log("OnClickUp");
 #if UNITY_EDITOR
         RaycastHit hit;
         var ray = m_Camera.ScreenPointToRay(Input.mousePosition);

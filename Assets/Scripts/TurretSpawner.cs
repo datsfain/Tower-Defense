@@ -6,40 +6,39 @@ using UnityEngine;
 public class TurretSpawner : MonoBehaviour
 {
     public Camera mainCamera;
-    public TurretSpawnDialog spawnDialog;
-    public TurretSellDialog sellDialog;
-    public Turret TurretPrefab;
-    private Dictionary<Turret, TurretSpawnPoint> SpawnedTurrets;
+    public TowerSpawnDialog spawnDialog;
+    public TowerSellDialog sellDialog;
+    private Dictionary<Tower, TowerSpawnPoint> SpawnedTowers;
 
     private void Awake()
     {
-        SpawnedTurrets = new Dictionary<Turret, TurretSpawnPoint>();
+        SpawnedTowers = new Dictionary<Tower, TowerSpawnPoint>();
     }
     private void OnEnable()
     {
-        TurretSpawnPoint.OnSpawnPointSelected += HandleSpawnPointSelected;
-        Turret.OnTurretSelected += HandleTurretSelected;
+        TowerSpawnPoint.OnSpawnPointSelected += HandleSpawnPointSelected;
+        Tower.OnTowerSelected += HandleTowerSelected;
     }
     private void OnDisable()
     {
-        TurretSpawnPoint.OnSpawnPointSelected -= HandleSpawnPointSelected;
-        Turret.OnTurretSelected -= HandleTurretSelected;
+        TowerSpawnPoint.OnSpawnPointSelected -= HandleSpawnPointSelected;
+        Tower.OnTowerSelected -= HandleTowerSelected;
     }
 
     // Turret Sell
-    private void HandleTurretSelected(Turret turret, bool selected)
+    private void HandleTowerSelected(Tower turret, bool selected)
     {
-        if (!SpawnedTurrets.ContainsKey(turret)) return;
+        if (!SpawnedTowers.ContainsKey(turret)) return;
 
         if (selected)
         {
-            var spawnPoint = SpawnedTurrets[turret];
+            var spawnPoint = SpawnedTowers[turret];
             var dialogPosition = mainCamera.WorldToScreenPoint(spawnPoint.SpawnPosition);
             sellDialog.Show(dialogPosition, () =>
             {
                 spawnPoint.ClickEnabled = true;
                 Destroy(turret.gameObject);
-                SpawnedTurrets.Remove(turret);
+                SpawnedTowers.Remove(turret);
             });
         }
         else
@@ -50,22 +49,18 @@ public class TurretSpawner : MonoBehaviour
 
 
     // Turret Spawn
-    private void SpawnTurret(TurretSpawnPoint spawnPoint, int index)
+    private void SpawnTower(TowerSpawnPoint spawnPoint, TowerTypeSO towerType)
     {
-        Debug.Log($"Spawning {index}");
-        if (index != -1)
-        {
-            var turret = Instantiate(TurretPrefab, spawnPoint.transform.position, Quaternion.identity);
-            spawnPoint.ClickEnabled = false;
-            SpawnedTurrets.Add(turret, spawnPoint);
-        }
+        var tower = Instantiate(towerType.TowerPrefab, spawnPoint.SpawnPosition, Quaternion.identity);
+        spawnPoint.ClickEnabled = false;
+        SpawnedTowers.Add(tower, spawnPoint);
     }
-    private void HandleSpawnPointSelected(TurretSpawnPoint spawnPoint, bool selected)
+    private void HandleSpawnPointSelected(TowerSpawnPoint spawnPoint, bool selected)
     {
         var dialogScreenPosition = mainCamera.WorldToScreenPoint(spawnPoint.SpawnPosition);
         if (selected)
         {
-            spawnDialog.Show(dialogScreenPosition, index => SpawnTurret(spawnPoint, index));
+            spawnDialog.Show(dialogScreenPosition, towerType => SpawnTower(spawnPoint, towerType));
         }
         else
         {
