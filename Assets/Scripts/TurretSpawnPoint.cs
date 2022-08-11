@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class TurretSpawnPoint : MonoBehaviour, ISelectable
 {
-    public static Action<TurretSpawnPoint> OnSpawnPointClicked;
+    public static Action<TurretSpawnPoint, bool> OnSpawnPointSelected;
     [SerializeField] Collider m_Collider;
     [SerializeField] MeshRenderer m_Renderer;
     public bool _clickEnabled = true;
@@ -21,11 +21,13 @@ public class TurretSpawnPoint : MonoBehaviour, ISelectable
 
     public void OnSelected()
     {
+        OnSpawnPointSelected?.Invoke(this, true);
         Debug.Log("Turret Spawn Point Selected", this);
     }
 
     public void OnDeselected()
     {
+        OnSpawnPointSelected?.Invoke(this, false);
         Debug.Log("Turret Spawn Point Deselected", this);
     }
 }

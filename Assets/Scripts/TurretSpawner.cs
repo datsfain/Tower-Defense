@@ -7,6 +7,7 @@ public class TurretSpawner : MonoBehaviour
 {
     public Camera mainCamera;
     public TurretSpawnDialog spawnDialog;
+    public TurretSellDialog sellDialog;
     public Turret TurretPrefab;
     private Dictionary<Turret, TurretSpawnPoint> SpawnedTurrets;
 
@@ -16,36 +17,59 @@ public class TurretSpawner : MonoBehaviour
     }
     private void OnEnable()
     {
-        TurretSpawnPoint.OnSpawnPointClicked += SpawnTurret;
-        Turret.OnTurretClicked += RemoveTurret;
+        TurretSpawnPoint.OnSpawnPointSelected += HandleSpawnPointSelected;
+        Turret.OnTurretSelected += HandleTurretSelected;
     }
     private void OnDisable()
     {
-        TurretSpawnPoint.OnSpawnPointClicked -= SpawnTurret;
-        Turret.OnTurretClicked -= RemoveTurret;
+        TurretSpawnPoint.OnSpawnPointSelected -= HandleSpawnPointSelected;
+        Turret.OnTurretSelected -= HandleTurretSelected;
     }
 
-    private void RemoveTurret(Turret turret)
+    // Turret Sell
+    private void HandleTurretSelected(Turret turret, bool selected)
     {
         if (!SpawnedTurrets.ContainsKey(turret)) return;
 
-        SpawnedTurrets[turret].ClickEnabled = true;
-        Destroy(turret.gameObject);
-        SpawnedTurrets.Remove(turret);
+        if (selected)
+        {
+            var spawnPoint = SpawnedTurrets[turret];
+            var dialogPosition = mainCamera.WorldToScreenPoint(spawnPoint.SpawnPosition);
+            sellDialog.Show(dialogPosition, () =>
+            {
+                spawnPoint.ClickEnabled = true;
+                Destroy(turret.gameObject);
+                SpawnedTurrets.Remove(turret);
+            });
+        }
+        else
+        {
+            sellDialog.Hide();
+        }
     }
 
-    private void SpawnTurret(TurretSpawnPoint spawnPoint)
+
+    // Turret Spawn
+    private void SpawnTurret(TurretSpawnPoint spawnPoint, int index)
+    {
+        Debug.Log($"Spawning {index}");
+        if (index != -1)
+        {
+            var turret = Instantiate(TurretPrefab, spawnPoint.transform.position, Quaternion.identity);
+            spawnPoint.ClickEnabled = false;
+            SpawnedTurrets.Add(turret, spawnPoint);
+        }
+    }
+    private void HandleSpawnPointSelected(TurretSpawnPoint spawnPoint, bool selected)
     {
         var dialogScreenPosition = mainCamera.WorldToScreenPoint(spawnPoint.SpawnPosition);
-        spawnDialog.Show(dialogScreenPosition, (int index) =>
+        if (selected)
         {
-            Debug.Log($"Spawning {index}");
-            if (index != -1)
-            {
-                var turret = Instantiate(TurretPrefab, spawnPoint.transform.position, Quaternion.identity);
-                spawnPoint.ClickEnabled = false;
-                SpawnedTurrets.Add(turret, spawnPoint);
-            }
-        });
+            spawnDialog.Show(dialogScreenPosition, index => SpawnTurret(spawnPoint, index));
+        }
+        else
+        {
+            spawnDialog.Hide();
+        }
     }
 }

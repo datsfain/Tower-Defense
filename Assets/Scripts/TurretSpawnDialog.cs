@@ -14,6 +14,11 @@ public class TurretSpawnDialog : MonoBehaviour
     public void Submit(int turretIndex)
     {
         Callback?.Invoke(turretIndex);
+        Hide();
+    }
+
+    public void Hide()
+    {
         gameObject.SetActive(false);
     }
 }
