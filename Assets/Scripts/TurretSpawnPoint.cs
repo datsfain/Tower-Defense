@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TurretSpawnPoint : MonoBehaviour, IPointerClickHandler
+public class TurretSpawnPoint : MonoBehaviour, ISelectable
 {
     public static Action<TurretSpawnPoint> OnSpawnPointClicked;
     [SerializeField] Collider m_Collider;
@@ -18,9 +18,14 @@ public class TurretSpawnPoint : MonoBehaviour, IPointerClickHandler
         }
     }
     public Vector3 SpawnPosition => new Vector3(transform.position.x, 0f, transform.position.z);
-    public void OnPointerClick(PointerEventData eventData)
+
+    public void OnSelected()
     {
-        OnSpawnPointClicked?.Invoke(this);
-        Debug.Log("Turret Spawn Point Clicked");
+        Debug.Log("Turret Spawn Point Selected", this);
+    }
+
+    public void OnDeselected()
+    {
+        Debug.Log("Turret Spawn Point Deselected", this);
     }
 }
