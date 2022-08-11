@@ -16,5 +16,5 @@ MonoBehaviour:
   <DisplaySprite>k__BackingField: {fileID: 21300000, guid: 91723c71595623f43b53f58a120eba27, type: 3}
   <ShootInterval>k__BackingField: 1.11
   <AttackRange>k__BackingField: 35.4
-  <BuildPrice>k__BackingField: 0
+  <BuildPrice>k__BackingField: 400
   <Damage>k__BackingField: 0

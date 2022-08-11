@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6f83127297c80b4d8acf473a463c494, type: 3}
-  m_Name: Red
+  m_Name: Green
   m_EditorClassIdentifier: 
-  <TowerPrefab>k__BackingField: {fileID: 4440249044155825903, guid: 72a9db2d3af00d242b821fd879bafa37, type: 3}
-  <DisplaySprite>k__BackingField: {fileID: 21300000, guid: f9f1d5f9eb21366468b97ebb6f8c2bbb, type: 3}
+  <TowerPrefab>k__BackingField: {fileID: 2558559305625770586, guid: 00401805d81da3e4d9bf27a676458b14, type: 3}
+  <DisplaySprite>k__BackingField: {fileID: 21300000, guid: 0782366607969cc42b037902e3eacb05, type: 3}
   <ShootInterval>k__BackingField: 1.11
   <AttackRange>k__BackingField: 35.4
-  <BuildPrice>k__BackingField: 0
+  <BuildPrice>k__BackingField: 100
   <Damage>k__BackingField: 0

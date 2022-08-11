@@ -1,18 +1,13 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Tower : MonoBehaviour, ISelectable
 {
-    public static Action<Tower,bool> OnTowerSelected;
-
-    public void OnDeselected()
+    public TowerTypeSO TowerType { get; private set; }
+    public void Initialize(TowerTypeSO towerType)
     {
-        OnTowerSelected?.Invoke(this, false);
+        TowerType = towerType;
     }
 
-    public void OnSelected()
-    {
-        OnTowerSelected?.Invoke(this, true);
-    }
+    public void OnSelected() => TowerEvents.OnTowerSelected(this, true);
+    public void OnDeselected() => TowerEvents.OnTowerSelected(this, false);
 }

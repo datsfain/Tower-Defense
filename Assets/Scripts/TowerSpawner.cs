@@ -3,7 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretSpawner : MonoBehaviour
+public static class TowerEvents
+{
+    public static Action<Tower> OnTowerBuilt;
+    public static Action<Tower> OnTowerSold;
+    public static Action<Tower, bool> OnTowerSelected;
+}
+
+public class TowerSpawner : MonoBehaviour
 {
     public Camera mainCamera;
     public TowerSpawnDialog spawnDialog;
@@ -17,28 +24,29 @@ public class TurretSpawner : MonoBehaviour
     private void OnEnable()
     {
         TowerSpawnPoint.OnSpawnPointSelected += HandleSpawnPointSelected;
-        Tower.OnTowerSelected += HandleTowerSelected;
+        TowerEvents.OnTowerSelected += HandleTowerSelected;
     }
     private void OnDisable()
     {
         TowerSpawnPoint.OnSpawnPointSelected -= HandleSpawnPointSelected;
-        Tower.OnTowerSelected -= HandleTowerSelected;
+        TowerEvents.OnTowerSelected -= HandleTowerSelected;
     }
 
     // Turret Sell
-    private void HandleTowerSelected(Tower turret, bool selected)
+    private void HandleTowerSelected(Tower tower, bool selected)
     {
-        if (!SpawnedTowers.ContainsKey(turret)) return;
+        if (!SpawnedTowers.ContainsKey(tower)) return;
 
         if (selected)
         {
-            var spawnPoint = SpawnedTowers[turret];
+            var spawnPoint = SpawnedTowers[tower];
             var dialogPosition = mainCamera.WorldToScreenPoint(spawnPoint.SpawnPosition);
-            sellDialog.Show(dialogPosition, () =>
+            sellDialog.Show(tower, dialogPosition, () =>
             {
+                TowerEvents.OnTowerSold(tower);
+                SpawnedTowers.Remove(tower);
+                Destroy(tower.gameObject);
                 spawnPoint.ClickEnabled = true;
-                Destroy(turret.gameObject);
-                SpawnedTowers.Remove(turret);
             });
         }
         else
@@ -51,7 +59,12 @@ public class TurretSpawner : MonoBehaviour
     // Turret Spawn
     private void SpawnTower(TowerSpawnPoint spawnPoint, TowerTypeSO towerType)
     {
+        Debug.Log("Spawning");
         var tower = Instantiate(towerType.TowerPrefab, spawnPoint.SpawnPosition, Quaternion.identity);
+        tower.Initialize(towerType);
+
+        TowerEvents.OnTowerBuilt(tower);
+
         spawnPoint.ClickEnabled = false;
         SpawnedTowers.Add(tower, spawnPoint);
     }
