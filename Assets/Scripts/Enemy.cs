@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     {
         m_AttackDelay = new WaitForSeconds(m_AttackDamageDelay);
         m_TimeSinceLastAttack = Stats.AttackInterval;
+        m_Agent.speed = Stats.MoveSpeed;
     }
 
     private void OnEnable()

@@ -1,15 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public EnemyTypeSO[] enemyTypes;
-    public Transform castle;
+    [SerializeField] private EnemyWaveSO[] m_Waves;
+    [SerializeField] private Transform m_Castle;
+    [SerializeField] private float TimeBetweenWaves;
 
-    public float spawnInterval;
+    [SerializeField] private IntVariable m_CurrentWave;
+    [SerializeField] private IntVariable m_TotalWaves;
 
     private void OnEnable()
     {
@@ -18,12 +18,35 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
-        while (true)
+        m_TotalWaves.Value = m_Waves.Length;
+        for (int waveIndex = 0; waveIndex < m_Waves.Length; waveIndex++)
         {
-            var enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
-            var enemy = Instantiate(enemyType.EnemyPrefab, transform.position, Quaternion.identity);
-            enemy.SetTarget(castle.position);
-            yield return new WaitForSeconds(spawnInterval);
+            m_CurrentWave.Value = waveIndex + 1;
+            var wave = m_Waves[waveIndex];
+            var spawnInterval = new WaitForSeconds(wave.SpawnInterval);
+            var spawnPortionList = new List<EnemyTypeSO>();
+            for (int i = 0; i < wave.Enemies.Count; i++)
+            {
+                for (int count = 0; count < wave.Enemies[i].Portion; count++)
+                {
+                    spawnPortionList.Add(wave.Enemies[i].EnemyType);
+                }
+            }
+
+            for (float time = 0; time <= wave.Duration; time += wave.SpawnInterval)
+            {
+                var enemyType = spawnPortionList[Random.Range(0, spawnPortionList.Count)];
+                SpawnEnemy(enemyType);
+                yield return spawnInterval;
+            }
+
+            yield return new WaitForSeconds(TimeBetweenWaves);
         }
+    }
+
+    private void SpawnEnemy(EnemyTypeSO enemyType)
+    {
+        var enemy = Instantiate(enemyType.EnemyPrefab, Random.insideUnitSphere + transform.position, Quaternion.identity);
+        enemy.SetTarget(m_Castle.transform.position);
     }
 }

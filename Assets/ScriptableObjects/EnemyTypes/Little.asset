@@ -15,8 +15,8 @@ MonoBehaviour:
   EnemyPrefab: {fileID: 3702585699330353323, guid: 6f4b694adbf274d4e9a88a2ad5f2ae35, type: 3}
   AttackInterval: 1
   AttackRange: 2
-  MaxHealth: 20
+  MaxHealth: 25
   AttackDamage: 1
-  MoveSpeed: 4
+  MoveSpeed: 3
   MinRewardCoins: 1
   MaxRewardCoins: 5

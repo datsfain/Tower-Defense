@@ -35,7 +35,6 @@ public class TowerSpawnDialog : MonoBehaviour
 
     private void EnableButtons()
     {
-        Debug.Log("Enabling");
         m_Buttons.ForEach(button => button.Enabled = m_Coins.Value >= button.TowerType.BuildPrice);
     }
 
