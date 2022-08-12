@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 191531134748826335}
   - component: {fileID: 8430814251603699904}
   m_Layer: 0
-  m_Name: TurretSpawnPoint
+  m_Name: TowerSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5f9b9556d9843e2429c2175f6e15dec8, type: 2}
+  - {fileID: 2100000, guid: 135ab243598375e46a62c2681fc76be0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

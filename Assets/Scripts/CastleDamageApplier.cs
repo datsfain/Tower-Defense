@@ -25,6 +25,9 @@ public class CastleDamageApplier : MonoBehaviour
 
     private void DamageCastle(Enemy enemy)
     {
-        CurrentHealth.Value -= enemy.Stats.AttackDamage;
+        var currentHealth = CurrentHealth.Value;
+        currentHealth -= enemy.Stats.AttackDamage;
+        if(currentHealth < 0) currentHealth = 0;
+        CurrentHealth.Value = currentHealth;
     }
 }

@@ -6,10 +6,13 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyWaveSO[] m_Waves;
     [SerializeField] private Transform m_Castle;
+    [SerializeField] private Transform m_SpawnPoint;
     [SerializeField] private float TimeBetweenWaves;
+    [SerializeField] private float SpawnRadius;
 
     [SerializeField] private IntVariable m_CurrentWave;
     [SerializeField] private IntVariable m_TotalWaves;
+    public bool AllEnemiesSpawned { get; private set; } = false;
 
     public readonly List<Enemy> Enemies = new List<Enemy>();
     private void OnEnable()
@@ -59,11 +62,13 @@ public class EnemyManager : MonoBehaviour
 
             yield return new WaitForSeconds(TimeBetweenWaves);
         }
+
+        AllEnemiesSpawned = true;
     }
 
     private void SpawnEnemy(EnemyTypeSO enemyType)
     {
-        var enemy = Instantiate(enemyType.EnemyPrefab, Random.insideUnitSphere + transform.position, Quaternion.identity);
+        var enemy = Instantiate(enemyType.EnemyPrefab, Random.insideUnitSphere * SpawnRadius + m_SpawnPoint.position, Quaternion.identity);
         enemy.SetTarget(m_Castle.transform.position);
     }
 }

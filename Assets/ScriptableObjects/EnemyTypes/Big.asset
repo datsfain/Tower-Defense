@@ -17,6 +17,6 @@ MonoBehaviour:
   AttackRange: 4
   MaxHealth: 120
   AttackDamage: 20
-  MoveSpeed: 1.2
+  MoveSpeed: 1.5
   MinRewardCoins: 20
   MaxRewardCoins: 50
