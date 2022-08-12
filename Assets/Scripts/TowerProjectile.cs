@@ -24,11 +24,6 @@ public class TowerProjectile : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, m_Enemy.transform.position);
-    }
-
     private void Update()
     {
         if(m_Enemy == null)

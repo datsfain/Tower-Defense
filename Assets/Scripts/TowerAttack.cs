@@ -22,6 +22,7 @@ public class TowerAttack : MonoBehaviour
     {
         m_Castle = castle;
         m_EnemyManager = enemyManager;
+        m_TimeSinceLastAttack = Stats.ShootInterval;
     }
 
     private void Update()
