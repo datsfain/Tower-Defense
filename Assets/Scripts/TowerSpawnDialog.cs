@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerSpawnDialog : MonoBehaviour
 {
     private Action<TowerTypeSO> m_Callback;
-    [SerializeField] private IntVariable m_Gold;
+    [SerializeField] private IntVariable m_Coins;
     [SerializeField] private TowerTypeSO[] m_TowerTypes;
     [SerializeField] private TowerSpawnButton m_ButtonPrefab;
     [SerializeField] private Transform m_ButtonsParent;
@@ -25,18 +25,18 @@ public class TowerSpawnDialog : MonoBehaviour
 
     private void OnEnable()
     {
-        m_Gold.OnValueChanged += EnableButtons;
+        m_Coins.OnValueChanged += EnableButtons;
         EnableButtons();
     }
     private void OnDisable()
     {
-        m_Gold.OnValueChanged -= EnableButtons;
+        m_Coins.OnValueChanged -= EnableButtons;
     }
 
     private void EnableButtons()
     {
         Debug.Log("Enabling");
-        m_Buttons.ForEach(button => button.Enabled = m_Gold.Value >= button.TowerType.BuildPrice);
+        m_Buttons.ForEach(button => button.Enabled = m_Coins.Value >= button.TowerType.BuildPrice);
     }
 
     public void Show(Vector2 position, Action<TowerTypeSO> callback)
@@ -48,7 +48,7 @@ public class TowerSpawnDialog : MonoBehaviour
 
     public void Submit(TowerTypeSO towerType)
     {
-        if (m_Gold.Value >= towerType.BuildPrice)
+        if (m_Coins.Value >= towerType.BuildPrice)
         {
             m_Callback?.Invoke(towerType);
         }

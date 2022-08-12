@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class TowerEventsObserver : MonoBehaviour
 {
-    public IntVariable Gold;
+    public IntVariable Coins;
 
     private void Awake()
     {
-        Gold.Value = 300;
+        Coins.Value = 300;
     }
 
     public void OnEnable()
@@ -27,14 +27,14 @@ public class TowerEventsObserver : MonoBehaviour
     private void HandleTowerSold(Tower tower)
     {
         Debug.Log("Sold");
-        Debug.Log(Gold.Value);
-        Gold.Value += tower.TowerType.BuildPrice;
-        Debug.Log(Gold.Value);
+        Debug.Log(Coins.Value);
+        Coins.Value += tower.TowerType.BuildPrice;
+        Debug.Log(Coins.Value);
     }
 
     private void HandleTowerBuild(Tower tower)
     {
         Debug.Log("Building");
-        Gold.Value -= tower.TowerType.BuildPrice;
+        Coins.Value -= tower.TowerType.BuildPrice;
     }
 }
