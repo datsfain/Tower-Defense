@@ -104,6 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 2257994707152652712}
   m_Agent: {fileID: 2471768364261778418}
+  m_AttackDamageDelay: 0.15
 --- !u!95 &2257994707152652712
 Animator:
   serializedVersion: 3
@@ -137,14 +138,14 @@ NavMeshAgent:
   m_Acceleration: 40
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 2
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3
   m_BaseOffset: 1.85
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!136 &2257994707152652714
 CapsuleCollider:
   m_ObjectHideFlags: 0

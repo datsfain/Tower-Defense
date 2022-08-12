@@ -5,6 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Enemy Type", menuName = "Scriptable Objects/EnemyType")]
 public class EnemyTypeSO : ScriptableObject
 {
+    [field: SerializeField]
+    public Enemy EnemyPrefab;
+
+    [field: SerializeField]
+    public float AttackInterval;
+
+    [field: SerializeField]
+    public float AttackRange;
+
     [field: SerializeField] 
     public int MaxHealth;
 

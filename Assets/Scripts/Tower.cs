@@ -8,6 +8,6 @@ public class Tower : MonoBehaviour, ISelectable
         TowerType = towerType;
     }
 
-    public void OnSelected() => TowerEvents.OnTowerSelected(this, true);
-    public void OnDeselected() => TowerEvents.OnTowerSelected(this, false);
+    public void OnSelected() => GameEvents.OnTowerSelected(this, true);
+    public void OnDeselected() => GameEvents.OnTowerSelected(this, false);
 }

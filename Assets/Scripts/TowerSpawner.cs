@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class TowerEvents
+public static class GameEvents
 {
     public static Action<Tower> OnTowerBuilt;
     public static Action<Tower> OnTowerSold;
     public static Action<Tower, bool> OnTowerSelected;
+    public static Action<Enemy> OnEnemyDamageCastle;
+    public static Action<Tower, Enemy> OnTowerDamageEnemy;
 }
 
 public class TowerSpawner : MonoBehaviour
@@ -24,12 +26,12 @@ public class TowerSpawner : MonoBehaviour
     private void OnEnable()
     {
         TowerSpawnPoint.OnSpawnPointSelected += HandleSpawnPointSelected;
-        TowerEvents.OnTowerSelected += HandleTowerSelected;
+        GameEvents.OnTowerSelected += HandleTowerSelected;
     }
     private void OnDisable()
     {
         TowerSpawnPoint.OnSpawnPointSelected -= HandleSpawnPointSelected;
-        TowerEvents.OnTowerSelected -= HandleTowerSelected;
+        GameEvents.OnTowerSelected -= HandleTowerSelected;
     }
 
     // Turret Sell
@@ -43,7 +45,7 @@ public class TowerSpawner : MonoBehaviour
             var dialogPosition = mainCamera.WorldToScreenPoint(spawnPoint.SpawnPosition);
             sellDialog.Show(tower, dialogPosition, () =>
             {
-                TowerEvents.OnTowerSold(tower);
+                GameEvents.OnTowerSold(tower);
                 SpawnedTowers.Remove(tower);
                 Destroy(tower.gameObject);
                 spawnPoint.ClickEnabled = true;
@@ -63,7 +65,7 @@ public class TowerSpawner : MonoBehaviour
         var tower = Instantiate(towerType.TowerPrefab, spawnPoint.SpawnPosition, Quaternion.identity);
         tower.Initialize(towerType);
 
-        TowerEvents.OnTowerBuilt(tower);
+        GameEvents.OnTowerBuilt(tower);
 
         spawnPoint.ClickEnabled = false;
         SpawnedTowers.Add(tower, spawnPoint);

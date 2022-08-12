@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001ffb4eca05c5d48861ce8033a410e2, type: 3}
   m_Name: Little
   m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 3702585699330353323, guid: 6f4b694adbf274d4e9a88a2ad5f2ae35, type: 3}
+  AttackInterval: 1
+  AttackRange: 2
   MaxHealth: 20
   AttackDamage: 1
   MoveSpeed: 4
