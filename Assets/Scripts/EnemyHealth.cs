@@ -6,9 +6,9 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public Action OnValueChanged;
+    private EnemyTypeSO m_Stats;
 
     private int _currentHealth;
-
     public int CurrentHealth
     {
         get
@@ -19,8 +19,9 @@ public class EnemyHealth : MonoBehaviour
         {
             _currentHealth = value;
             OnValueChanged?.Invoke();
-            if(_currentHealth < 0)
+            if(_currentHealth <= 0)
             {
+                GameEvents.OnEnemyKilled(m_Stats);
                 Destroy(gameObject);
             }
         }
@@ -29,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
-        var stats = GetComponent<Enemy>().Stats;
-        CurrentHealth = MaxHealth = stats.MaxHealth;
+        m_Stats = GetComponent<Enemy>().Stats;
+        CurrentHealth = MaxHealth = m_Stats.MaxHealth;
     }
 }

@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenTower
       objectReference: {fileID: 0}
+    - target: {fileID: 5270845150892614882, guid: 66ad5c77e3c26b74491019a37ce0f94d, type: 3}
+      propertyPath: <TowerType>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d0792d1ccc420143a4ec6bb73c667b5, type: 2}
     - target: {fileID: 5270845150913678333, guid: 66ad5c77e3c26b74491019a37ce0f94d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 5270845150892614880}
   - component: {fileID: 5270845150892614883}
   - component: {fileID: 5270845150892614882}
+  - component: {fileID: -4215231481945772680}
   m_Layer: 0
   m_Name: TowerBase
   m_TagString: Untagged
@@ -207,7 +208,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5270845150892614881}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 4.8, z: 1}
@@ -224,6 +225,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacc5f6dcd9bbec4b878977021c6e7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <TowerType>k__BackingField: {fileID: 0}
+  m_TowerAttack: {fileID: -4215231481945772680}
+--- !u!114 &-4215231481945772680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270845150892614881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712692e91d39f9e48a963a7e8fba2d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tower: {fileID: 5270845150892614882}
+  m_Projectile: {fileID: 4332175677993093943, guid: 7ae0720074419aa4aac1a06df23586bf, type: 3}
+  m_ShootPosition: {fileID: 5270845150816600506}
 --- !u!1 &5270845150913678328
 GameObject:
   m_ObjectHideFlags: 0

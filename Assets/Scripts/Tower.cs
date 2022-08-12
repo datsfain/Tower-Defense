@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour, ISelectable
 {
-    public TowerTypeSO TowerType { get; private set; }
-    public void Initialize(TowerTypeSO towerType)
+    [field: SerializeField] public TowerTypeSO TowerType { get; private set; }
+
+    [SerializeField] private TowerAttack m_TowerAttack;
+
+    public void Initialize(Transform castle)
     {
-        TowerType = towerType;
+        m_TowerAttack.Initialize(castle);
     }
 
     public void OnSelected() => GameEvents.OnTowerSelected(this, true);

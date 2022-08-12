@@ -10,11 +10,13 @@ public static class GameEvents
     public static Action<Tower, bool> OnTowerSelected;
     public static Action<Enemy> OnEnemyDamageCastle;
     public static Action<Tower, Enemy> OnTowerDamageEnemy;
+    public static Action<EnemyTypeSO> OnEnemyKilled;
 }
 
 public class TowerSpawner : MonoBehaviour
 {
     public Camera mainCamera;
+    public Transform Castle;
     public TowerSpawnDialog spawnDialog;
     public TowerSellDialog sellDialog;
     private Dictionary<Tower, TowerSpawnPoint> SpawnedTowers;
@@ -61,9 +63,8 @@ public class TowerSpawner : MonoBehaviour
     // Turret Spawn
     private void SpawnTower(TowerSpawnPoint spawnPoint, TowerTypeSO towerType)
     {
-        Debug.Log("Spawning");
         var tower = Instantiate(towerType.TowerPrefab, spawnPoint.SpawnPosition, Quaternion.identity);
-        tower.Initialize(towerType);
+        tower.Initialize(Castle);
 
         GameEvents.OnTowerBuilt(tower);
 

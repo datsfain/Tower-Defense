@@ -53,7 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5270845150892614881, guid: 66ad5c77e3c26b74491019a37ce0f94d, type: 3}
       propertyPath: m_Name
-      value: TowerBase
+      value: YellowTower
       objectReference: {fileID: 0}
+    - target: {fileID: 5270845150892614882, guid: 66ad5c77e3c26b74491019a37ce0f94d, type: 3}
+      propertyPath: <TowerType>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: a9d6fdec87eb53a4bb98b007c64cec06, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66ad5c77e3c26b74491019a37ce0f94d, type: 3}

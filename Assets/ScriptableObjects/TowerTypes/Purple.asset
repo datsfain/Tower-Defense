@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <TowerPrefab>k__BackingField: {fileID: 319399555845246835, guid: c8c2266b8e689ea4aa8ca73b5bfd256b, type: 3}
   <DisplaySprite>k__BackingField: {fileID: 21300000, guid: 62e2d7b5569009f47ba8771073800a78, type: 3}
-  <ShootInterval>k__BackingField: 1.11
-  <AttackRange>k__BackingField: 35.4
+  <ShootInterval>k__BackingField: 1
+  <AttackRange>k__BackingField: 10
   <BuildPrice>k__BackingField: 200
-  <Damage>k__BackingField: 0
+  <Damage>k__BackingField: 20
