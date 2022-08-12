@@ -2382,7 +2382,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d356debe4cdb8474c8de449dc3e5b539, type: 2}
   - {fileID: 11400000, guid: c1891dd6057fcf7478d9925f36e3d7ff, type: 2}
   castle: {fileID: 498815824}
-  spawnInterval: 1
+  spawnInterval: 2
 --- !u!4 &1082474973
 Transform:
   m_ObjectHideFlags: 0

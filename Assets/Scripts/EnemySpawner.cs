@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
         {
             var enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
             var enemy = Instantiate(enemyType.EnemyPrefab, transform.position, Quaternion.identity);
-            enemy.Initialize(enemyType, castle.position);
+            enemy.SetTarget(castle.position);
             yield return new WaitForSeconds(spawnInterval);
         }
     }

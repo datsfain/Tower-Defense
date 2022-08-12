@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2257994707152652711, guid: 8dbb81c1998c9e547a2d88e22c15bfc8, type: 3}
+      propertyPath: <Stats>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 6d7d2682064187441b9899b46d78ca72, type: 2}
     - target: {fileID: 2257994707152652713, guid: 8dbb81c1998c9e547a2d88e22c15bfc8, type: 3}
       propertyPath: m_Name
       value: LittleEnemy

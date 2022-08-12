@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator m_Animator;
     [SerializeField] private NavMeshAgent m_Agent;
     [SerializeField] private float m_AttackDamageDelay;
+    [field: SerializeField] public EnemyTypeSO Stats { get; private set; }
 
-    public EnemyTypeSO Stats { get; private set; }
     private float m_TimeSinceLastAttack = 1f;
     private WaitForSeconds m_AttackDelay;
 
@@ -24,10 +24,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Initialize(EnemyTypeSO enemyType, Vector3 destination)
+    public void SetTarget(Vector3 destination)
     {
-        Stats = enemyType;
         m_Agent.destination = destination;
+    }
+
+    private void Awake()
+    {
         m_AttackDelay = new WaitForSeconds(m_AttackDamageDelay);
         m_TimeSinceLastAttack = Stats.AttackInterval;
     }
