@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator m_Animator;
     [SerializeField] private NavMeshAgent m_Agent;
     [SerializeField] private float m_AttackDamageDelay;
+    [SerializeField] private Canvas m_Canvas;
+
+    private Camera m_Camera;
 
     private bool Walking => m_Agent.velocity.sqrMagnitude > 0.1f;
     private WaitForSeconds m_AttackDelay;
@@ -36,6 +39,7 @@ public class Enemy : MonoBehaviour
         m_AttackDelay = new WaitForSeconds(m_AttackDamageDelay);
         m_TimeSinceLastAttack = Stats.AttackInterval;
         m_Agent.speed = Stats.MoveSpeed;
+        m_Camera = Camera.main;
     }
 
     private void OnEnable()
@@ -49,6 +53,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        m_Canvas.transform.forward = m_Camera.transform.forward;
+
         if (Input.GetMouseButtonDown(1))
         {
             SetNewDestination();

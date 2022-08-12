@@ -316,10 +316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6ff885d30871c4d9ab7ba1dfae08e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Stats>k__BackingField: {fileID: 0}
   m_Animator: {fileID: 2257994707152652712}
   m_Agent: {fileID: 2471768364261778418}
   m_AttackDamageDelay: 0.15
-  <Stats>k__BackingField: {fileID: 0}
+  m_Canvas: {fileID: 6789041045776260014}
 --- !u!95 &2257994707152652712
 Animator:
   serializedVersion: 3
