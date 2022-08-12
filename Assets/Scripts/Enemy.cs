@@ -14,12 +14,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        NavMesh.avoidancePredictionTime = 2f;
-        NavMesh.pathfindingIterationsPerFrame = 100;
-    }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
