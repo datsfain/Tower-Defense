@@ -5,12 +5,20 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private Animator m_Animator;
     [SerializeField] private NavMeshAgent m_Agent;
-    [SerializeField] private Vector3 m_TargetPosition;
-    [SerializeField] private Camera m_MainCamera;
-    [SerializeField] private Rigidbody m_Rigidbody;
-    [SerializeField] private float m_MoveSpeed;
-    [SerializeField] private float m_StopRangeSqrMgn;
-    [SerializeField] private float m_MaxRotationDeltaDegrees;
+
+    private bool m_HasReachedTarget
+    {
+        get
+        {
+            return m_Agent.velocity.sqrMagnitude <= 0.01f;
+        }
+    }
+
+    private void OnEnable()
+    {
+        NavMesh.avoidancePredictionTime = 2f;
+        NavMesh.pathfindingIterationsPerFrame = 100;
+    }
 
     private void Update()
     {
@@ -19,8 +27,13 @@ public class Enemy : MonoBehaviour
             SetNewDestination();
         }
 
-        var walking = m_Agent.velocity.sqrMagnitude >= 0.01f;
+        var walking = !m_HasReachedTarget;
         m_Animator.SetBool("Walking", walking);
+    }
+
+    private void Hit()
+    {
+
     }
 
     private void SetNewDestination()
@@ -29,8 +42,7 @@ public class Enemy : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100.0f))
         {
-            m_TargetPosition = hit.point;
-            m_Agent.SetDestination(m_TargetPosition);
+            m_Agent.SetDestination(hit.point);
         }
     }
 }
