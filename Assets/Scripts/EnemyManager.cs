@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyWaveSO[] m_Waves;
     [SerializeField] private Transform m_Castle;
@@ -11,9 +11,26 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private IntVariable m_CurrentWave;
     [SerializeField] private IntVariable m_TotalWaves;
 
+    public readonly List<Enemy> Enemies = new List<Enemy>();
     private void OnEnable()
     {
+        GameEvents.OnEnemySpawned += AddEnemy;
+        GameEvents.OnEnemyKilled += RemoveEnemy;
         StartCoroutine(SpawnEnemies());
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnEnemySpawned -= AddEnemy;
+        GameEvents.OnEnemyKilled -= RemoveEnemy;
+    }
+
+    private void RemoveEnemy(Enemy enemy)
+    {
+        Enemies.Remove(enemy);
+    }
+    private void AddEnemy(Enemy enemy)
+    {
+        Enemies.Add(enemy);
     }
 
     private IEnumerator SpawnEnemies()

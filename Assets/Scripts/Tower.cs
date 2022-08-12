@@ -6,9 +6,9 @@ public class Tower : MonoBehaviour, ISelectable
 
     [SerializeField] private TowerAttack m_TowerAttack;
 
-    public void Initialize(Transform castle, EnemyTracker enemyTracker)
+    public void Initialize(Transform castle, EnemyManager enemyManager)
     {
-        m_TowerAttack.Initialize(castle, enemyTracker);
+        m_TowerAttack.Initialize(castle, enemyManager);
     }
 
     public void OnSelected() => GameEvents.OnTowerSelected(this, true);

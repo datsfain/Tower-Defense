@@ -8,7 +8,7 @@ public class TowerAttack : MonoBehaviour
 
     private TowerTypeSO Stats => m_Tower.TowerType;
     private Transform m_Castle;
-    private EnemyTracker m_EnemyTracker;
+    private EnemyManager m_EnemyManager;
     private float m_TimeSinceLastAttack;
     private float m_SqrRange;
 
@@ -18,10 +18,10 @@ public class TowerAttack : MonoBehaviour
         m_SqrRange = attackRange * attackRange;
     }
 
-    public void Initialize(Transform castle, EnemyTracker enemyTracker)
+    public void Initialize(Transform castle, EnemyManager enemyManager)
     {
         m_Castle = castle;
-        m_EnemyTracker = enemyTracker;
+        m_EnemyManager = enemyManager;
     }
 
     private void Update()
@@ -45,7 +45,7 @@ public class TowerAttack : MonoBehaviour
 
     private void Shoot()
     {
-        var enemies = m_EnemyTracker.Enemies;
+        var enemies = m_EnemyManager.Enemies;
 
         Enemy target = null;
         var minDistance = float.MaxValue;

@@ -20,7 +20,7 @@ public class TowerSpawner : MonoBehaviour
     [SerializeField] private Transform m_Castle;
     [SerializeField] private TowerSpawnDialog m_SpawnDialog;
     [SerializeField] private TowerSellDialog m_SellDialog;
-    [SerializeField] private EnemyTracker m_EnemyTracker;
+    [SerializeField] private EnemyManager m_EnemyManager;
     private Dictionary<Tower, TowerSpawnPoint> m_SpawnedTowers;
 
     private void Awake()
@@ -66,7 +66,7 @@ public class TowerSpawner : MonoBehaviour
     private void SpawnTower(TowerSpawnPoint spawnPoint, TowerTypeSO towerType)
     {
         var tower = Instantiate(towerType.TowerPrefab, spawnPoint.SpawnPosition, Quaternion.identity);
-        tower.Initialize(m_Castle, m_EnemyTracker);
+        tower.Initialize(m_Castle, m_EnemyManager);
 
         GameEvents.OnTowerBuilt(tower);
 
