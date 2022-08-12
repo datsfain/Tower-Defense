@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
     public Action OnValueChanged;
-    private EnemyTypeSO m_Stats;
+    private Enemy m_Enemy;
 
     private int _currentHealth;
     public int CurrentHealth
@@ -21,7 +19,7 @@ public class EnemyHealth : MonoBehaviour
             OnValueChanged?.Invoke();
             if(_currentHealth <= 0)
             {
-                GameEvents.OnEnemyKilled(m_Stats);
+                GameEvents.OnEnemyKilled(m_Enemy);
                 Destroy(gameObject);
             }
         }
@@ -30,7 +28,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
-        m_Stats = GetComponent<Enemy>().Stats;
-        CurrentHealth = MaxHealth = m_Stats.MaxHealth;
+        m_Enemy = GetComponent<Enemy>();
+        CurrentHealth = MaxHealth = m_Enemy.Stats.MaxHealth;
     }
 }

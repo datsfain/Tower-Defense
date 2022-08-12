@@ -16,10 +16,11 @@ public class TowerDamageApplier : MonoBehaviour
         GameEvents.OnEnemyKilled -= HandleEnemyKilled;
     }
 
-    private void HandleEnemyKilled(EnemyTypeSO enemyType)
+    private void HandleEnemyKilled(Enemy enemy)
     {
-        m_Coins.Value += Random.Range(enemyType.MinRewardCoins, enemyType.MaxRewardCoins + 1);
+        m_Coins.Value += Random.Range(enemy.Stats.MinRewardCoins, enemy.Stats.MaxRewardCoins + 1);
     }
+
     private void HandleTowerDamageEnemy(Tower tower, Enemy enemy)
     {
         var damage = tower.TowerType.Damage;

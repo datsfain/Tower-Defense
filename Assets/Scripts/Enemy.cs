@@ -4,15 +4,17 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [field: SerializeField] public EnemyTypeSO Stats { get; private set; }
     [SerializeField] private Animator m_Animator;
     [SerializeField] private NavMeshAgent m_Agent;
     [SerializeField] private float m_AttackDamageDelay;
-    [field: SerializeField] public EnemyTypeSO Stats { get; private set; }
-
-    private float m_TimeSinceLastAttack = 1f;
-    private WaitForSeconds m_AttackDelay;
 
     private bool Walking => m_Agent.velocity.sqrMagnitude > 0.1f;
+    private WaitForSeconds m_AttackDelay;
+    private float m_TimeSinceLastAttack = 1f;
+
+    private static readonly int k_WalkingAnimationHash = Animator.StringToHash("Walking");
+    private static readonly int k_AttackAnimationHash = Animator.StringToHash("Attack");
 
     private bool HasReachedTarget
     {
@@ -35,6 +37,15 @@ public class Enemy : MonoBehaviour
         m_TimeSinceLastAttack = Stats.AttackInterval;
     }
 
+    private void OnEnable()
+    {
+        GameEvents.OnEnemySpawned?.Invoke(this);
+    }
+    private void OnDisable()
+    {
+        GameEvents.OnEnemyKilled?.Invoke(this);
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -44,7 +55,7 @@ public class Enemy : MonoBehaviour
 
         UpadateAttackState();
 
-        m_Animator.SetBool("Walking", Walking);
+        m_Animator.SetBool(k_WalkingAnimationHash, Walking);
     }
 
     private void UpadateAttackState()
@@ -63,7 +74,7 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator AttackCoroutine()
     {
-        m_Animator.SetTrigger("Attack");
+        m_Animator.SetTrigger(k_AttackAnimationHash);
         yield return m_AttackDelay;
         ApplyDamage();
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerProjectile : MonoBehaviour
@@ -22,7 +20,6 @@ public class TowerProjectile : MonoBehaviour
         if(enemy == m_Enemy)
         {
             GameEvents.OnTowerDamageEnemy?.Invoke(m_Tower, m_Enemy);
-            Debug.Log("Hit");
             Destroy(gameObject);
         }
     }
